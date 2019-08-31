@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 public class MazeDisplay extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 800;
+	public static final int WIDTH = 1120;
+	public static final int HEIGHT = 1120;
 	
 	private JFrame window;
 	
@@ -26,7 +26,8 @@ public class MazeDisplay extends JPanel{
 		window.setVisible(true);
 		window.pack();
 		
-		maze = MazeMaker.generateMaze(5, 5);
+		maze = MazeMaker.generateMaze(9, 7);
+		
 		repaint();
 	}
 	

@@ -20,26 +20,26 @@ public class MazeMaker {
 		maze = new Maze(width, height);
 		System.out.println(width + ", " + height);
 		// 4. select a random cell to start
-		Cell startCell = maze.getCell(randGen.nextInt(maze.getWidth()), randGen.nextInt(maze.getHeight()));
-
-		// 5. call selectNextPath method with the randomly selected cell
+		Cell startCell = maze.getCell(randGen.nextInt(w), randGen.nextInt(h));
 		selectNextPath(startCell);
+		// 5. call selectNextPath method with the randomly selected cell
+		
 		Cell enter;
 		Cell exit;
 		int side;
-		if(randGen.nextBoolean()) {
-			side = 1;
-		}
-		else {
-			side = 2;
-		}
-		if(side == 1) {
- enter = maze.getCell(0, randGen.nextInt(maze.getHeight()));
- exit = maze.getCell(maze.getWidth(), randGen.nextInt(maze.getHeight()));
-		}
-		else {
-			enter = maze.getCell(randGen.nextInt(maze.getWidth()), 0 );
-			 exit = maze.getCell(randGen.nextInt(maze.getWidth()), maze.getHeight());
+
+		side = randGen.nextInt(2);
+
+		if (side == 1) {
+			enter = maze.getCell(0, randGen.nextInt(h));
+			exit = maze.getCell(w - 1, randGen.nextInt(h));
+			enter.setWestWall(false);
+			exit.setEastWall(false);
+		} else {
+			enter = maze.getCell(randGen.nextInt(w), 0);
+			exit = maze.getCell(randGen.nextInt(w), h - 1);
+			enter.setNorthWall(false);
+			exit.setSouthWall(false);
 		}
 		return maze;
 	}
