@@ -42,11 +42,80 @@
 package extras.the_wrong_way_cow;
 
 public class TheWrongWayCow {
+	enum Direction {
+		NORTH, SOUTH, EAST, WEST
+	}
 
-    public static int[] findWrongWayCow(final char[][] field) {
-        // Fill in the code to return the x,y coordinate position of the
-        // head (letter 'c') of the wrong way cow!
-        
-        return null;
-    }
+	static int south = 0;
+	static int north = 0;
+	static int east = 0;
+	static int west = 0;
+	static Direction majority;
+
+	public static int[] findWrongWayCow(final char[][] field) {
+		south = 0;
+		north = 0;
+		east = 0;
+		west = 0;
+//		ArrayList<String> fieldL = new ArrayList<String>();
+//		// Fill in the code to return the x,y coordinate position of the
+//		// head (letter 'c') of the wrong way cow!
+////		for (int i = 0; i < 20; i++) {
+////			System.out.println();
+////		}
+//		for (char[] cs : field) {
+//			String temp = "";
+//			for (char c : cs) {
+//				temp+=c;
+//			}
+//			fieldL.add(temp);
+//		}
+////		for (String string : fieldL) {
+////			System.out.println(string);
+////		}
+////		System.out.println();
+////		for (char[] s : field) {
+////			System.out.println(s);
+////		}
+//
+//		for (String string : fieldL) {
+//			if (string.contains("c")) {
+//				System.out.println(fieldL.indexOf(string));
+//			}
+//		}
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++) {
+				if (field[i][j] == 'c') {
+					if (i + 1 < field.length - 1) {
+						if (field[i + 1][j] == 'o') {
+							north += 1;
+						}
+					}
+					if (i - 1 > 0) {
+						if (field[i - 1][j] == 'o') {
+							south += 1;
+						}
+					}
+					if (j + 1 < field[i].length) {
+						if (field[i][j + 1] == 'o') {
+							west += 1;
+						}
+					}
+					if (j - 1 > 0) {
+						if (field[i][j - 1] == 'o') {
+							east += 1;
+						}
+					}
+
+				}
+			}
+		}
+		System.out.println(west);
+		if (west == 1) {
+			System.out.println("1");
+		}
+
+		return new int[] { 0, 0 };
+
+	}
 }
