@@ -44,77 +44,89 @@ package extras.the_wrong_way_cow;
 import java.util.HashMap;
 
 public class TheWrongWayCow {
-	enum Direction {
-		NORTH, SOUTH, EAST, WEST
-	}
-
-	static int south = 0;
-	static int north = 0;
-	static int east = 0;
-	static int west = 0;
-	static Direction majority;
-	static int[] coords = new int[] { 0, 0 };
-	static HashMap<String, int[]> hm = new HashMap<String, int[]>();
-	static boolean canbreak = true;
 
 	public static int[] findWrongWayCow(final char[][] field) {
-
+		int south = 0;
+		int north = 0;
+		int east = 0;
+		int west = 0;
+		int[] coords = new int[] { 0, 0 };
+		HashMap<String, int[]> hm = new HashMap<String, int[]>();
+		boolean canbreak = true;
 		for (int i = 0; i < field.length && canbreak; i++) {
 
 			for (int j = 0; j < field[i].length; j++) {
 
 				if (field[i][j] == 'c') {
 
-					if (i + 1 < field.length - 1) {
+					if (i + 2 < field.length) {
 
 						if (field[i + 1][j] == 'o') {
 							if (field[i + 2][j] == 'w') {
 
-								hm.put("north", new int[] { i, j });
+								hm.put("north", new int[] { j, i });
 								north += 1;
 
 							}
 						}
 					}
-					if (i - 1 > 0) {
+					if (i - 2 >= 0) {
 						if (field[i - 1][j] == 'o') {
 							if (field[i - 2][j] == 'w') {
 
 								south += 1;
+								hm.put("south", new int[] { j, i });
 
 							}
 
 						}
 					}
-					if (j + 1 < field[i].length) {
+					if (j + 2 < field[i].length) {
 						if (field[i][j + 1] == 'o') {
 							if (field[i][j + 2] == 'w') {
 
 								west += 1;
+								hm.put("west", new int[] { j, i });
+
 							}
 						}
 					}
 
-					if (j - 1 > 0) {
+					if (j - 2 >= 0) {
 						if (field[i][j - 1] == 'o') {
 							if (field[i][j - 2] == 'w') {
 
 								east += 1;
+								hm.put("east", new int[] { j, i });
 
 							}
 						}
 					}
-
-					if (north + south + east + west >= 3) {
-						if (hm.size() > 1) {
-							coords = new int[] { i, j };
-							canbreak = false;
-							break;
-						}
-					}
 				}
 			}
+			if (north + south + east + west >= 3) {
+				if (hm.size() > 1) {
+					if (north == 1) {
+						coords = hm.get("north");
+					} else if (south == 1) {
+						coords = hm.get("south");
+
+					} else if (east == 1) {
+						coords = hm.get("east");
+
+					} else if (west == 1) {
+						coords = hm.get("west");
+
+					}
+
+					canbreak = false;
+					break;
+				}
+			}
+
 		}
+		System.out.println(coords[0]);
+		System.out.println(coords[1]);
 		return coords;
 
 	}
